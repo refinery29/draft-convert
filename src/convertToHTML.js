@@ -27,7 +27,8 @@ const defaultEntityToHTML = (entity, originalText) => {
 const convertToHTML = ({
   styleToHTML = {},
   blockToHTML = {},
-  entityToHTML = defaultEntityToHTML
+  entityToHTML = defaultEntityToHTML,
+  shouldEncodeBlock = true
 }) => contentState => {
   invariant(
     contentState !== null && contentState !== undefined,
@@ -84,9 +85,7 @@ const convertToHTML = ({
 
     const innerHTML = blockInlineStyles(
       blockEntities(
-        encodeBlock(
-          block
-        ),
+        shouldEncodeBlock ? encodeBlock(block) : block,
         rawState.entityMap,
         entityToHTML
       ),

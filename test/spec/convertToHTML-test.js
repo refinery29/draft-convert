@@ -889,4 +889,15 @@ describe('convertToHTML', () => {
     })(contentState);
     expect(result).toBe('<p>👍 <a href="/users/1">Santi Albo</a></p>');
   });
+
+  it('does not encode HTML if shouldEncodeBlock is false', () => {
+    const contentState = buildContentState([
+      {
+        type: 'unstyled',
+        text: '<&>'
+      }
+    ]);
+    const result = convertToHTML({ shouldEncodeBlock: false })(contentState);
+    expect(result).toBe('<p><&></p>');
+  });
 });
